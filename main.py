@@ -2,8 +2,10 @@ def show_menu():
     print("1.Citirea unei liste de numere intregi.")
     print("2.Afisati daca cele doua liste au acelasi numar par de elemente.")
     print("3.Afisarea unei liste ce reprezinta intersectia a doua liste.")
-    print("4.Afisati toate palindroamele obtinute prin concatenarea tututor elementelor de pe aceleasi pozitii din cele doua liste.")
-    print("5.Cerinta 5")
+    print(
+        "4.Afisati toate palindroamele obtinute prin concatenarea tututor elementelor de pe aceleasi pozitii din cele doua liste.")
+    print(
+        "5.Citeste a 3 a lista si inlocuieste elementele din primele doua liste cu glindintul lor daca elementele sunt divizibile cu toate elementele din a treia lista")
     print("x.Iesire din program")
 
 
@@ -81,6 +83,23 @@ def is_palindrome(n):
     return False
 
 
+def oglindit(n):
+    # Determina daca un numar este palindrom dau sau nu
+    copie_n = n
+    oglindit = 0
+    while n:
+        oglindit = oglindit * 10 + n % 10
+        n = n // 10
+    return oglindit
+
+
+def test_is_palindrome():
+    assert is_palindrome(121) == True
+    assert is_palindrome(789) == False
+    assert is_palindrome(1221) == True
+    assert is_palindrome(123443) == False
+
+
 def palidroms_from_all_lsts(lst1, lst2):
     """
 
@@ -101,16 +120,32 @@ def palidroms_from_all_lsts(lst1, lst2):
     return rezult_lst
 
 
-def test_palidroms_from_all_lsts() :
+def test_palidroms_from_all_lsts():
     assert palidroms_from_all_lsts([21, 23, 63, 55, 424], [12, 22, 36, 11]) == [1221, 3663]
     assert palidroms_from_all_lsts([21, 44, 33, 5, 3], [12, 7, 3]) == [1221, 333]
+
+
+def divizibil_cu_toate(n ,lst):
+    for i in range(len(lst)):
+        if n % lst[i] != 0:
+            return False
+    return True
+
+
+def inlc_elem(lst , c):
+    for i in range(len(lst)):
+        if divizibil_cu_toate(lst[i] , c):
+            lst[i] = oglindit(lst[i])
+    return lst
 
 
 def main():
     lst1 = []
     lst2 = []
+    lst3 = []
     lst1_copy = []
     lst2_copy = []
+    lst3_copy =[]
     while True:
         show_menu()
         optiune = input("Introduceti optiunea dorita: ")
@@ -129,13 +164,16 @@ def main():
         if optiune == '4':
             print(palidroms_from_all_lsts(lst1_copy, lst2_copy))
         if optiune == '5':
-            pass
-        if optiune == 'x':
+            lst3 = read_date()
+            lst3_copy = convert_list_str_to_int(lst3)
+            print(inlc_elem(lst1_copy,lst3_copy))
+            print(inlc_elem(lst2_copy,lst3_copy))
+        if optiune == 'x' :
             break
-
 
 if __name__ == '__main__':
     test_este_par()
     test_intersec_elem()
     test_palidroms_from_all_lsts()
+    test_is_palindrome()
     main()
