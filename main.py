@@ -1,13 +1,13 @@
 def show_menu():
-      print("1.Citirea unei liste de numere intregi.")
-      print("2.Afisati daca cele doua liste au acelasi numar par de elemente.")
-      print("3.Afisarea unei liste ce reprezinta intersectia a doua liste.")
-      print("4.Afisati toate palindroamele obtinute prin concatenarea tututor elementelor celor doua liste.")
-      print("5.Cerinta 5")
-      print("x.Iesire din program")
+    print("1.Citirea unei liste de numere intregi.")
+    print("2.Afisati daca cele doua liste au acelasi numar par de elemente.")
+    print("3.Afisarea unei liste ce reprezinta intersectia a doua liste.")
+    print("4.Afisati toate palindroamele obtinute prin concatenarea tututor elementelor celor doua liste.")
+    print("5.Cerinta 5")
+    print("x.Iesire din program")
 
 
-def read_date() :
+def read_date():
     lst = []
     lst_str = input("Introduceti lista cu numere intregi: ")
     lst_str_split = lst_str.split(',')
@@ -29,25 +29,47 @@ def convert_list_str_to_int(lst):
     return list_int
 
 
-def este_par(lst) :
+def este_par(lst):
     """
 
     :param lst: o lista de numere intregi
     :return: numarul de numere pare din lista
     """
     nr_pare = 0
-    for i in lst :
-        if i % 2 ==0 :
+    for i in lst:
+        if i % 2 == 0:
             nr_pare = nr_pare + 1
     return nr_pare
 
 
-def test_este_par() :
-    assert este_par([3,4,5,6]) == 2
-    assert este_par([4,4,66,8,5]) == 4
-    assert este_par([2,3,5,7,9]) == 1
+def test_este_par():
+    assert este_par([3, 4, 5, 6]) == 2
+    assert este_par([4, 4, 66, 8, 5]) == 4
+    assert este_par([2, 3, 5, 7, 9]) == 1
 
-def main() :
+
+def intersc_elem(lst1, lst2) :
+    """
+
+    :param lst1: O lista de numere intregi
+    :param lst2: O lista de numere intregi
+    :return: Intersectia celor doua liste introduse ca parametrii
+    """
+    lst_rezult = []
+    for i in lst1 :
+        for j in lst2 :
+            if i == j and i not in lst_rezult :
+                lst_rezult.append(i)
+    return lst_rezult
+
+
+def test_intersec_elem() :
+    assert intersc_elem([2,5,7,8],[2,3,4,5]) == [2,5]
+    assert intersc_elem([1,2,3],[1,2,3,4,5,6]) == [1,2,3]
+    assert intersc_elem([12,22,36,424],[22,36,55,23,424]) == [22,36,424]
+
+
+def main():
     lst1 = []
     lst2 = []
     lst1_copy = []
@@ -61,12 +83,12 @@ def main() :
             lst1_copy = convert_list_str_to_int(lst1)
             lst2_copy = convert_list_str_to_int(lst2)
         if optiune == '2':
-            if este_par(lst1_copy) == este_par(lst2_copy) :
+            if este_par(lst1_copy) == este_par(lst2_copy):
                 print("Da")
-            else :
+            else:
                 print("Nu")
         if optiune == '3':
-            pass
+            print(intersc_elem(lst1_copy,lst2_copy))
         if optiune == '4':
             pass
         if optiune == '5':
@@ -77,4 +99,5 @@ def main() :
 
 if __name__ == '__main__':
     test_este_par()
+    test_intersec_elem()
     main()
