@@ -131,7 +131,11 @@ def divizibil_cu_toate(n ,lst):
             return False
     return True
 
+def test_divizibil_cu_toate() :
+    assert divizibil_cu_toate(10,[1,2,5]) ==True
+    assert divizibil_cu_toate(20,[1,2,4,5]) == True
 
+    
 def inlc_elem(lst , c):
     for i in range(len(lst)):
         if divizibil_cu_toate(lst[i] , c):
@@ -176,4 +180,5 @@ if __name__ == '__main__':
     test_intersec_elem()
     test_palidroms_from_all_lsts()
     test_is_palindrome()
+    test_divizibil_cu_toate()
     main()
